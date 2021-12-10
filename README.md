@@ -2,6 +2,8 @@
 
 Linux basic bash scripting and system research.
 
+The russian version of the task can be found in the repository.
+
 ## Contents
 
 1. [Chapter I](#chapter-i) 
@@ -9,28 +11,29 @@ Linux basic bash scripting and system research.
     2.1. [Bash](#bash) \
     2.2. [Shell](#shell)
 3. [Chapter III](#chapter-iii) \
-    3.1. [Проба пера](#part-1-проба-пера)  
-    3.2. [Исследование системы](#part-2-исследование-системы)  
-    3.3. [Визуальное оформление вывода для скрипта исследования системы](#part-3-визуальное-оформление-вывода-для-скрипта-исследования-системы)  
-    3.4. [Конфигурирование визуального оформления вывода для скрипта исследования системы](#part-4-конфигурирование-визуального-оформления-вывода-для-скрипта-исследования-системы)     
-    3.5. [Исследование файловой системы](#part-5-исследование-файловой-системы)     
+    3.1. [First effort](#part-1-first-effort)  
+    3.2. [System research](#part-2-system-research)  
+    3.3. [Visual output design for the system research script](#part-3-visual-output-design-for-the-system-research-script)   
+    3.4. [Configuring visual output design for the system research script.](#part-4-configuring-visual-output-design-for-the-system-research-script)  
+    3.5. [File system research](#part-5-file-system-research)    
+4. [Chapter IV](#chapter-iv)
 
 ## Chapter I
 
-Планета Земля, США, штат Калифорния, наши дни.
+Planet Earth, USA, California, present day.
 
-Вы, как обычно, задержались на работе, чтобы не ехать домой по пробкам в час пик.
-Вы думаете, что кроме вас в офисе больше никого не осталось, пока не слышите шорохи из соседнего кабинета.
-Вы не придаёте этому значения, мало ли коллег могло задержаться, чтобы доделать свои дела. Вдруг вы слышите возглас из того самого кабинета (ваш коллега явно думал, что находится в офисе один):
+You have been working late, as usual, to avoid driving home through rush hour traffic.
+You think there is no one else in the office but you, until you hear noises from the office next door.
+You don't pay much attention to it, any colleague might have stayed late to finish his business.
+Suddenly you hear a yell from that very office (your colleague obviously thought he was alone):
 
-`-` Ух, как же я устал вручную собирать информацию о системе с этих компов на Линуксе. Наверное всё-таки стоило изучить его получше, прежде чем устраиваться сюда.
+`-` Ugh, I am so tired of collecting system information by hand from these computers on Linux. I probably should have learned it better before applying for the job.
 
-Вы тут же понимаете, что это ваш новенький системный администратор, принятый на работу всего пару недель назад.
-По инициативе вашего товарища Майка на несколько машин в офисе был поставлен Линукс.
-Ваш сисадмин действительно старается, ему просто не повезло устроиться именно в сейчас.
-"Бедняга. -- подумали вы. -- Надо попробовать помочь ему, раз уж у меня есть время!"
+You quickly realise that this is your new system administrator, hired just a couple of weeks ago. At the initiative of your teammate Mike, Linux have been installed on several machines in the office.
+Your sysadmin is really trying, he's just unlucky to get a job now. \
+"Poor guy. -- you thought. -- I should try to help him, since I have the time!"
 
-Вы подходите к столу Майка и совершаете очень нехороший поступок: заглядываете в его выдвижной ящик. Вам повезло, вы нашли ровно то, что и искали: вырезки из статей про bash и shell.
+You go to Mike's desk and do something bad: you look in his drawer. You are lucky to find exactly what you were looking for: clippings from articles about bash and shell.
 
 ## Chapter II
 
@@ -58,85 +61,85 @@ Linux basic bash scripting and system research.
 >
 >Shells offer features geared specifically for interactive use rather than to augment the programming language. These interactive features include job control, command line editing, command history and aliases.
 
-Под вырезками из статей, в ящике Майка, лежала папка с подписью "materials". Заглянув в неё, вы обнаруживаете несколько листов с описанием возможностей bash-скриптов.
+There was a folder labeled "materials" underneath the article clippings in Mike's drawer. As you looked in it, you found several sheets describing the features of the bash scripts.
 
 ## Chapter III
 
-- Написанные Bash-скрипты должны находиться в папке src
-- Для каждого задания должна быть создана папка с названием вида: **0x**, где x - номер задания
-- Все скрипты должны быть декомпозированы и разбиты на несколько файлов
-- Файл с основным сценарием для каждого задания должен называться **main.sh**
-- Во всех скриптах должны быть предусмотрены проверки на некорректный ввод (указаны не все параметры, параметры неправильного формата и т.д.)
+- The written bash scripts must be in the src folder
+- For each task you must create a folder with the following name: **0x**, where x is the task number.
+- All scripts must be decomposed and split into several files
+- The main script file for each task must be named **main.sh**
+- All scripts should have checks for incorrect input (not all parameters specified, wrong format parameters, etc.)
 
-## Part 1. Проба пера
+## Part 1. First effort
 
-Перед тем, как приступать к помощи своему коллеге, вы решаете проверить свои знания на совсем небольшой программе.
+Before you start helping your colleague, you decide to test your knowledge on a very simple program.
 
-**== Задание ==**
+**== Task ==**
 
-Написать bash-скрипт. Скрипт запускается с одним параметром. Параметр текстовый.  
-Скрипт выводит значение параметра.  
-Если параметр - число, то должно выводится сообщение о некорректности ввода.  
+Write a bash script. The script is run with one parameter. It is a text parameter.  
+The script outputs the value of the parameter.  
+If the parameter is a number, the script must output an invalid input message.
 
-## Part 2. Исследование системы
+## Part 2. System research
 
-Теперь вы уверенны в том, что готовы приступить к первоначальной задумке. Вы быстро прикидываете, какую информацию о системе стоит вывести, и приступаете к работе.
+Now you’re sure that you’re ready to get down to the initial idea. You quickly think of the information about the system you need to output and get to work.
 
-**== Задание ==**
+**== Task ==**
 
-Написать bash-скрипт. Скрипт должен вывести на экран информацию в виде:  
+Write a bash script. The script should output the following information:
 
-**HOSTNAME** = _сетевое имя_  
-**TIMEZONE** = _временная зона в виде: **America/New_York UTC -5** (временная зона, должна браться из системы и быть корректной для текущего местоположения)_  
-**USER** = _текущий пользователь который запустил скрипт_  
-**OS** = _тип и версия операционной системы_  
-**DATE** = _текущее время в виде: **12 May 2020 12:24:36**_  
-**UPTIME** = _время работы системы_  
-**UPTIME_SEC** = _время работы системы в секундах_  
-**IP** = _ip-адрес машины в любом из сетевых интерфейсов_  
-**MASK** = _сетевая маска любого из сетевых интерфейсов в виде: **xxx.xxx.xxx.xxx**_  
-**GATEWAY** = _ip шлюза по умолчанию_  
-**RAM_TOTAL** = _размер оперативной памяти в Гб c точностью три знака после запятой в виде: **3.125 Gb**_  
-**RAM_USED** = _размер используемой памяти в Гб c точностью три знака после запятой_  
-**RAM_FREE** = _размер свободной памяти в Гб c точностью три знака после запятой_  
-**SPACE_ROOT** = _размер рутового раздела в Mб с точностью два знака после запятой в виде: **254.25 MB**_  
-**SPACE_ROOT_USED** = _размер занятого пространства рутового раздела в Mб с точностью два знака после запятой_  
-**SPACE_ROOT_FREE** = _размер рутового раздела в Mб с точностью два знака после запятой_  
+**HOSTNAME** = _network name_  
+**TIMEZONE** = _time zone as: **America/New_York UTC -5** (time zone must be taken from the system and be correct for the current location)_  
+**USER** = _current user who ran the script_  
+**OS** = _type and version of operating system_  
+**DATE** = _current time as: **12 May 2020 12:24:36**_  
+**UPTIME** = _system uptime_  
+**UPTIME_SEC** = _system uptime in seconds_  
+**IP** = _ip address of the machine on any of the network interfaces  
+**MASK** = _network mask of any of the network interfaces as: **xxx.xxx.xxx.xxx**_.  
+**GATEWAY** = _default gateway ip_  
+**RAM_TOTAL** = _main memory size in GB with an accuracy of three decimal places as: **3.125 Gb**_  
+**RAM_USED** = _used memory size in GB with an accuracy of three decimal places_  
+**RAM_FREE** = _free memory size in GB, with an accuracy of three decimal places_  
+**SPACE_ROOT** = _root partition size in MB, with an accuracy of two decimal places, as **254.25 MB**_
+**SPACE_ROOT_USED** = _root partition size in MB, with an accuracy of two decimal places_ **SPACE_ROOT_FREE** = _root partition size in MB, with an accuracy of two decimal places_
 
-После вывода значений предложить записать данные в файл (предложить пользователю ответить **Y/N**).  
-Ответы **Y** и **y** считаются положительными, все прочие - отрицательными.
-При согласии пользователя, в текущей директории создать файл содержащий информацию, которая была выведена на экран.  
-Название файла должно иметь вид: **DD_MM_YY_HH_MM_SS.status** (Время в имени файла должно указывать момент сохранения данных).  
+After outputting the values, suggest writing the data to a file (ask the user to answer **Y/N**).  
+Responses **Y** and **y** are considered positive, all others - negative.
 
-## Part 3. Визуальное оформление вывода для скрипта исследования системы
+If the user agrees, create a file in the current directory containing the information that had been outputted.
+The file name must looks like: **DD_MM_YY_HH_MM_SS.status** (The time in the file name must indicate when the data was saved).
 
-Всё готово! Но как же скучно оно выглядит... Нужно добавить больше красок в этот мир!
+## Part 3. Visual output design for the system research script
 
-**== Задание ==**
+Everything is ready! But it looks so boring... We need to add more colours to this world!
 
-Написать bash-скрипт. За основу взять скрипт из [**Part 2**](#part-2-исследование-системы) и убрать из него часть, ответственную за сохранение данных в файл.  
-Скрипт запускается с 4 параметрами. Параметры числовые. От 1 до 6, например:  
+**== Task ==**
+
+Write a bash script. Use the script from [**Part 2**](#part-2-system-research) and remove the part where the data is saved to a file.  The script is run with 4 parameters. The parameters are numeric. From 1 to 6, for example:  
 `script03.sh 1 3 4 5`
 
-Обозначения цветов: (1 - white, 2 - red, 3 - green, 4 - blue, 5 – purple, 6 - black)  
-**Параметр 1** - это фон названий значений (HOSTNAME, TIMEZONE, USER и т.д.)  
-**Параметр 2** - это цвет шрифта названий значений (HOSTNAME, TIMEZONE, USER и т.д.)  
-**Параметр 3** - это фон значений (после знака '=')  
-**Параметр 4** - это цвет шрифта значений (после знака '=')
+Colour designations: (1 - white, 2 - red, 3 - green, 4 - blue, 5 - purple, 6 - black)
 
-Цвета шрифта и фона одного столбца не должны совпадать.  
-При вводе совпадающих значений должно выводится сообщение, описывающее проблему, и предложение повторно вызвать скрипт.  
-После вывода сообщения, программа должна корректно завершится.
+**Parameter 1** is the background of the value names (HOSTNAME, TIMEZONE, USER etc.)  
+**Parameter 2** is the font colour of the value names (HOSTNAME, TIMEZONE, USER etc.)  
+**Parameter 3** is the background of the values (after the '=' sign)  
+**Parameter 4** is the font colour of the values (after the '=' sign)
 
-## Part 4. Конфигурирование визуального оформления вывода для скрипта исследования системы
+The font and background colours of one column must not match.  
+If matching values are entered, there must be a message describing the problem and offering to call the script again.
+After the message output, the program should exit correctly.
 
-Вот теперь всё красиво! Но как же не хочется каждый раз вбивать цвета как параметры... Надо придумать что-нибудь более удобное.
+## Part 4. Configuring visual output design for the system research script
 
-**== Задание ==**
+Now everything looks nice! But I don't want to have to enter the colours as parameters every time... I'll have to come up with something more convenient.
 
-Написать bash-скрипт. За основу берется скрипт из [**Part 3**](#part-3-визуальное-оформление-вывода-для-скрипта-исследования-системы). Обозначения цветов аналогичные.  
-Скрипт запускается без параметров. Параметры задаются в конфигурационном файле до запуска скрипта.  
-Конфигурационный файл должен иметь вид:  
+**== Task ==**
+
+Write a bash script. Use the script from [**Part 3**](#part-3-visual-output-design-for-the-system-research-script). The colour designations are similar. The script runs without parameters. The parameters are set in the configuration file before the script is running.
+
+This is how the configuration file must look like:
 ```
 column1_background=2
 column1_font_color=4
@@ -144,9 +147,10 @@ column2_background=5
 column2_font_color=1
 ```
 
-Если один или несколько параметров не заданы в конфигурационном файле, то цвет должен подставляться из цветовой схемы, заданной по умолчанию. (Выбор на усмотрение разработчика).  
+If one or more parameters are not set in the configuration file, the colour must be substituted from the default colour scheme. (Choice is at the developer's discretion).
 
-После вывода информации о системе из [**Part 3**](#part-3-визуальное-оформление-вывода-для-скрипта-исследования-системы), нужно, сделав отступ в одну пустую строку, вывести цветовую схему в следующем виде:  
+
+After the system information output from [**Part 3**](#part-3-visual-output-design-for-the-system-research-script), you should output the colour scheme by indenting one empty line as follows:
 ```
 Column 1 background = 2 (red)
 Column 1 font color = 4 (blue)
@@ -154,7 +158,7 @@ Column 2 background = 5 (purple)
 Column 2 font color = 1 (white)
 ```
 
-При запуске скрипта с цветовой схемой по умолчанию вывод иметь вид:  
+When running the script with the default colour scheme, the output should look like this:
 ```
 Column 1 background = default (black)
 Column 1 font color = default (white)
@@ -162,64 +166,65 @@ Column 2 background = default (red)
 Column 2 font color = default (blue)
 ```
 
-## Part 5. Исследование файловой системы
+## Part 5. File system research
 
-Теперь, когда вывод информации о системе готов, красив и удобен, можно приступать ко второй части плана.
+Now that the system information output is prepared, looks nice and is convenient, you can get down to the second part of the plan.
 
-**== Задание ==**
+**== Task ==**
 
-Написать bash-скрипт. Скрипт запускается с одним параметром.  
-Параметр - это абсолютный или относительный путь до какой-либо директории. Параметр должен заканчиваться знаком '/', например:  
+Write a bash script. The script is run with a single parameter.  
+The parameter is an absolute or relative path to a directory. The parameter must end with '/', for example:  
 `script05.sh /var/log/`
 
-Скрипт должен выводить следующую информацию о каталоге, указанном в параметре:
-- Общее число папок, включая вложенные
-- Топ 5 папок с самым большим весом в порядке убывания (путь и размер)
-- Общее число файлов
-- Число конфигурационных файлов (с расширением .conf), текстовых файлов, исполняемых файлов, логов (файлов с расширением .log), архивов, символических ссылок
-- Топ 10 файлов с самым большим весом в порядке убывания (путь, размер и тип)
-- Топ 10 исполняемых файлов с самым большим весом в порядке убывания (путь, размер и хеш)
-- Время выполнения скрипта
+The script must output the following information about the directory specified in the parameter:
+- Total number of folders, including subfolders
+- Top 5 folders with largest size in descending order (path and size)
+- Total number of files
+- Number of configuration files (with .conf extension), text files, executable files, log files (files with .log extension), archives, symbolic links
+- Top 10 files with largest size in descending order (path, size and type)
+- Top 10 executable files with largest size in descending order (path, size and hash)
+- Execution time of the script
 
-Скрипт должен вывести на экран информацию в виде:  
+The script should output the following information:
 
 ```
-Total number of folders (including all nested ones) = _6_  
+Total number of folders (including all nested ones) = 6  
 TOP 5 folders of maximum size arranged in descending order (path and size):  
-_1 - /var/log/one/, 100 Gb  
+1 - /var/log/one/, 100 Gb  
 1 - /var/log/two/, 100 Mb  
-etc up to 5_  
-Total number of files = _30_  
+etc up to 5
+Total number of files = 30
 Number of:  
-Configuration files (with the .conf extension) = _1_  
-Text files = _10_  
-Executable files = _5_  
-Log files (with the extension .log) = _2_  
-Archive files = _3_  
-Symbolic links = _4_  
+Configuration files (with the .conf extension) = 1 
+Text files = 10  
+Executable files = 5
+Log files (with the extension .log) = 2  
+Archive files = 3  
+Symbolic links = 4  
 TOP 10 files of maximum size arranged in descending order (path, size and type):  
-_1 - /var/log/one/one.exe, 10 Gb, exe  
+1 - /var/log/one/one.exe, 10 Gb, exe  
 2 - /var/log/two/two.log, 10 Mb, log  
-etc up to 10_  
+etc up to 10  
 TOP 10 executable files of the maximum size arranged in descending order (path, size and hash)  
-_1 - /var/log/one/one.exe, 10 Gb, MD5  
+1 - /var/log/one/one.exe, 10 Gb, MD5  
 2 - /var/log/two/two.exe, 9 Mb, SHA-3  
-etc up to 10_  
-Script execution time (in seconds) = _1.5_
+etc up to 10  
+Script execution time (in seconds) = 1.5
 ```
+
 
 ## Chapter IV
 
-Итак, вы доделали всё, что хотели. Всё-таки пришлось задержаться немного дольше, чем обычно, но это того стоило.
-Вы собираете вещи и, по пути к выходу из офиса, заглядываете в комнату, в которой ранее слышали своего коллегу.
+Well, now you've done all the work you wanted to do. You had to stay a little longer than usual, but it was worth it.
+You pack up your stuff and, on your way out of the office, you looked into the room where you heard your colleague earlier.
 
-`-` Привет, я зайду? -- вы постучались в дверь.
+`-` Hey, may I come in? - you knocked on the door.
 
-`-` Да... секунду. Не думал, что тут есть кто-то ещё в такое время.
+`-` Yes... just a second. I didn't think there was anyone else here at this hour.
 
-Дверь открылась и, после недолгой беседы, вы передали неопытному сисадмину флешку со скриптами.
-Вы попрощались и уже собирались уходить, но тут вспомнили одну важную деталь.
+The door opened and, after a short conversation, you handed the inexperienced sysadmin a flash drive with the scripts.
+You said goodbye and were about to leave when you remembered an important detail.
 
-`-` Совсем забыл спросить: как тебя звать то?
+`-` Oh, I completely forgot to ask. What's your name?
 
-`-` Себастьян.
+`-` Sebastian.

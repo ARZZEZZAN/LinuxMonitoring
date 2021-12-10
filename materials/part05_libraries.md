@@ -1,5 +1,6 @@
-# Bash-скрипты, часть 5: функции и разработка библиотек
-Оболочка bash предоставляет возможность создавать функции. Функцию в bash можно объявить 2-мя способами:
+# Bash scripts, part 5: functions and creating libraries
+
+The bash shell provides the ability to create functions. A function in bash can be defined in 2 ways:
 ```shell
 functionName {
 }
@@ -8,7 +9,7 @@ functionName1() {
 }
 ```
 
-Для вызова функции в скрипте, достаточно указать её имя.
+To call a function in a script, all you have to do is specify its name.
 ```shell
 function myfunc {
 echo "This is an example of using a function"
@@ -22,7 +23,7 @@ done
 echo "End of the script"
 ```
 
-Результат работы описанного скрипта:
+The result of the script described above:
 ```
 This is an example of using a function
 This is an example of using a function
@@ -30,16 +31,17 @@ This is an example of using a function
 End of the script
 ```
 
-Обратите внимание на то, что попытавшись использовать функцию до её объявления, вы столкнётесь с ошибкой.
+Note that if you try to use a function before defining it, you will have an error.
 
-### Использование команды return
-Команда return позволяет задавать возвращаемый функцией целочисленный код завершения. То, что возвратила функция, находится в переменной $?.
+###Using the return command
 
-Если вы выполните любую другую команду до извлечения из переменной $? значения, возвращённого функцией, это значение будет утеряно. Дело в том, что данная переменная хранит код возврата последней выполненной команды.
+The return command allows you to specify an integer termination code returned by the function. What the function returned is in the $? variable.
 
-Учтите, что максимальное число, которое может вернуть команда return — 255. Если функция должна возвращать большее число или строку, понадобится другой подход.
+If you execute any other command before retrieving the value returned by the function from the $? variable, that value will be lost. The point is that this variable stores the return code for the last executed command.
 
-Пример работы команды return:
+Note that the maximum number the return command can return is 255. If the function needs to return a larger number or string, it will need a different approach.
+
+An example of how the return command works:
 ```shell
 function myfunc {
 read -p "Enter a value: " value
@@ -50,10 +52,11 @@ myfunc
 echo "The new value is $?"
 ```
 
-### Запись вывода функции в переменную
-Ещё один способ возврата результатов работы функции заключается в записи данных, выводимых функцией, в переменную. Такой подход позволяет обойти ограничения команды return и возвращать из функции любые данные.
+###Writing function output to variable
 
-Пример использования такого подхода:
+Another way to return the results of a function is to record the data output by the function into a variable. This approach allows you to bypass the limitations of the return command and return any data from the function.
+
+An example of using this approach:
 ```shell
 function myfunc {
 read -p "Enter a value: " value
@@ -63,12 +66,13 @@ result=$( myfunc)
 echo "The value is $result"
 ```
 
-### Аргументы функций
-Аргументы функции в bash работают также, как и параметры командной строки, переданные в скрипт.
+### Function Arguments
 
-Например, имя функции хранится в параметре $0, первый переданный ей аргумент — в $1, и так далее. Количество переданных функции аргументов хранится в переменной $#.
+Function arguments in bash work in the same way as the command line parameters passed to the script.
 
-Пример работы с аргументами функции:
+For example, the function name is stored in the $0 parameter, the first argument passed to it in $1, and so on. The number of arguments passed to the function is stored in the $# variable.
+
+An example of using function arguments:
 ```shell
 function addnum {
 if [ $# -eq 0 ] || [ $# -gt 2 ]
@@ -95,16 +99,16 @@ value=$(addnum 10 15 20)
 echo $value
 ```
 
-Обратите внимание на то, что функция не может напрямую работать с параметрами, которые переданы скрипту при его запуске из командной строки.
+Note that the function cannot directly work with parameters that are passed to the script when it is run from the command line.
 
-Передать массив в функцию в качестве аргумента не получится. Пример неправильного подхода:
+Passing an array into a function as an argument will not work. This is an example of the wrong approach:
 ```shell
 myarray=(1 2 3 4 5)
 echo "The original array is: ${myarray[*]}"
 myfunc $myarray
 ```
 
-Вместо этого следует передавать все элементы массива в качестве самостоятельных аргументов. Пример правильного подхода:
+Instead, you should pass all the items of the array as separate arguments. An example of the correct approach:
 ```shell
 function myfunc {
 newarray=("$@")
@@ -115,27 +119,30 @@ echo "The original array is ${myarray[*]}"
 myfunc ${myarray[*]}
 ```
 
-### Глобальные и локальные переменные
-Принцип работы глобальных и локальных переменных в bash-скриптах такой же, как и в других языках программирования.
+###Global and local variables
 
-Отличие лишь в том, что все переменные в bash-скрипте по умолчанию считаются глобальными. Чтобы создать локальную переменную, перед её именем нужно дописать слово local, например:
+The way global and local variables work in bash scripts is the same as in other programming languages.
+
+The only difference is that all variables in the bash script are considered global by default.
+To create a local variable, add the word local before its name:
 ```shell
 local temp=$(( $value + 5 ))
 ```
 
-### Создание и использование библиотек
-Чтобы использовать в скрипте функции, описанные в другом файле, используется команда source или её псевдоним - оператор «точка».
+### Creating and using libraries
 
-Пример подключения функции из другого файла:
+To use functions described in another file in the script, use the source command or the "dot" operator.
 
-Содержимое файла myfuncs, являющегося библиотекой:
+An example of connecting a function from another file:
+
+The contents of the myfuncs file, which is a library:
 ```shell
 function addnum {
 echo $(( $1 + $2 ))
 }
 ```
 
-Основной сценарий:
+Main script:
 ```shell
 . ./myfuncs
 result=$(addnum 10 20)

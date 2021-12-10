@@ -1,27 +1,29 @@
-# Bash-скрипты, часть 3: параметры и ключи командной строки
-Наиболее распространённый способ передачи данных сценариям заключается в использовании параметров командной строки. Выглядит это так:
+# Bash scripts, part 3: parameters and command line keys
+
+The most common way to pass data to scripts is by using command line parameters. It looks like this:
 ```shell
 $ ./myscript 10 20
 ```
 
-Оболочка bash назначает специальным переменным, называемым позиционными параметрами, введённые при вызове скрипта параметры командной строки:
-- $0 — имя скрипта.
-- $1 — первый параметр.
-- $2 — второй параметр.
+The bash shell assigns special variables, called position parameters, to the command line parameters entered when the script is called:
+- $0 - name of the script.
+- $1 - first parameter.
+- $2 - second parameter.
 - ...
-- $9 — девятый параметр.
-- ${10} - десятый параметр.
+- $9 - ninth parameter.
+- ${10} - tenth parameter.
 
-Вот как можно использовать параметры командной строки в скрипте с помощью этих переменных:
+Here's how you can use the command line parameters in a script using these variables:
 ```shell
 echo $0
 echo ${11}
 ```
 
-Обратите внимание на то, что параметры командной строки разделяются пробелами. Если параметр содержит пробелы, его следует заключить в кавычки.
+Note that command line parameters are separated by spaces. If a parameter contains spaces, it must be enclosed in inverted commas.
 
-### Проверка параметров
-Проверку наличия параметров, переданных сценарию при вызове, можно организовать так:
+### Parameter check
+
+To check if the parameters passed to the script when it is called, you can do the following:
 ```shell
 if [ -n "$1" ]
 then
@@ -31,25 +33,28 @@ echo "No parameters found. "
 fi
 ```
 
-### Подсчёт параметров
-Переменная $# содержит количество параметров, переданных сценарию при вызове.
+### Parameters counting
 
-Эта переменная даёт необычный способ получения последнего из переданных скрипту параметров, не требующий знания их количества. Вот как это выглядит:
+The $# variable contains the number of parameters passed to the script when called.
+
+This variable provides an unusual way to get the last of the parameters passed to the script without needing to know the number of parameters. Here's how it looks like:
 ```shell
 echo The last parameter was ${!#}
 ```
 
-### Захват всех параметров командной строки
-В некоторых случаях нужно захватить все параметры, переданные скрипту. Для этого можно воспользоваться переменными $* и $@.
+### Capture all command line parameters
 
-Переменная $* содержит все параметры, введённые в командной строке, в виде единого элемента.
+In some cases, you may need to capture all parameters passed to the script. The $* and $@ variables can be used for that.
 
-Переменная $@ содержит все параметры, введённые в командной строке, в виде массива. С помощью этой переменной параметры можно перебирать в циклах.
+The $* variable contains all parameters entered via command line as a single item.
 
-### Команда shift
-Команда shift, по умолчанию, сдвигает значения позиционных параметров влево. Например, значение переменной $3 становится значением переменной $2, значение $2 переходит в $1, а то, что было до этого в $1, теряется. Обратите внимание на то, что при этом значение переменной $0, содержащей имя скрипта, не меняется.
+The $@ variable contains all parameters entered via command line as an array. You can use this variable to iterate over the parameters in cycles.
 
-Воспользовавшись командой shift, рассмотрим ещё один способ перебора переданных скрипту параметров:
+### shift command
+
+The shift command, by default, shifts the values of the position parameters to the left. For example, the value of $3 variable becomes the value of $2 variable, the value of $2 becomes the value of $1, and what was before in $1 is lost. Note that the value of  $0 variable, which contains the script name, does not change.
+
+Using the shift command, let's look at another way of parameters iteration passed to the script:
 ```shell
 count=1
 while [ -n "$1" ]
@@ -60,9 +65,10 @@ shift
 done
 ```
 
-### Ключи командной строки
+### Command line options
 
-Ключи командной строки обычно выглядят как буквы, перед которыми ставится тире. Они служат для управления сценариями. Рассмотрим такой пример:
+Command line options usually look like letters preceded by a dash.
+They are used to manage scripts. This is an example:
 ```shell
 echo
 while [ -n "$1" ]
@@ -77,12 +83,12 @@ shift
 done
 ```
 
-Запустим скрипт:
+Run the script:
 ```shell
 $ ./myscript –a –b –c –d
 ```
 
-Вывод скрипта в терминале:
+The output of the script in the terminal:
 ```shell
 Found the -a option
 Found the -b option
@@ -90,12 +96,14 @@ Found the -c option
 -d is not an option
 ```
 
-В этом коде использована конструкция case, которая сверяет переданный ей ключ со списком обрабатываемых скриптом ключей. Если переданное значение нашлось в этом списке, выполняется соответствующая ветвь кода. Если при вызове скрипта будет использован любой ключ, обработка которого не предусмотрена, будет исполнена ветвь «*».
+This code uses a case construct that checks the option passed to it against the list of options handled by the script.
+If the passed value is found in this list, the appropriate branch of code is executed. If any option is used when calling the script, the "*" branch will be executed.
 
-### Как различать ключи и параметры
-Часто при написании bash-скриптов возникает ситуация, когда надо использовать и параметры командной строки, и ключи. Стандартный способ это сделать заключается в применении специальной последовательности символов, которая сообщает скрипту о том, когда заканчиваются ключи и начинаются обычные параметры.
+### How to distinguish options and parameters
 
-Эта последовательность — двойное тире. Оболочка использует её для указания позиции, на которой заканчивается список ключей. Рассмотрим пример:
+It is common when writing bash scripts to use both command line parameters and options. The typical way to do this is to use a special sequence of characters that tells the script when options end and parameters begin.
+
+This sequence is a double dash. The shell uses it to indicate the position at which the list of keys ends. Let's look at an example:
 ```shell
 while [ -n "$1" ]
 do
@@ -117,54 +125,59 @@ count=$(( $count + 1 ))
 done
 ```
 
-Этот сценарий использует команду break для прерывания цикла while при обнаружении в строке двойного тире.
+This script uses the break command to break the while loop when a double dash is detected in a line.
 
-Как видно, когда скрипт, разбирая переданные ему данные, находит двойное тире, он завершает обработку ключей и считает всё, что ещё не обработано, параметрами.
+As you can see, when the script, parsing the data passed to it, finds a double dash, it finishes the option processing and treats anything not yet processed as parameters.
 
-### Обработка ключей со значениями
-По мере усложнения ваших скриптов, вы столкнётесь с ситуациями, когда обычных ключей уже недостаточно, а значит, нужно будет использовать ключи с некими значениями. Например, вызов сценария в котором используется подобная возможность, выглядит так:
+### Processing options with values
+
+As your scripts get more complex, you will face situations where normal options are no longer sufficient, which means that you have to use options with some values.
+For example, a script call that uses such a feature looks like this:
 ```shell
 ./myscript -a test1 -b -c test2
 ```
 
-Скрипт должен уметь определять, когда вместе с ключами командной строки используются дополнительные параметры. Приведём пример обработки ключа, который нуждается в параметре:
+The script should be able to detect when additional parameters are used along with the command line options.
+Here is an example of processing an option that needs a parameter:
 ```shell
 -b) param="$2"
 echo "Found the -b option, with parameter value $param"
 shift ;;
 ```
 
-### Использование стандартных ключей
-При написании bash-скриптов вы можете выбирать любые буквы для ключей командной строки и произвольно задавать реакцию скрипта на эти ключи. Однако, в мире Linux значения некоторых ключей стали чем-то вроде стандарта, которого полезно придерживаться. Вот список этих ключей:
-- -a -- Вывести все объекты.
-- -c -- Произвести подсчёт.
-- -d -- Указать директорию.
-- -e -- Развернуть объект.
-- -f -- Указать файл, из которого нужно прочитать данные.
-- -h -- Вывести справку по команде.
-- -i -- Игнорировать регистр символов.
-- -l -- Выполнить полноформатный вывод данных.
-- -n -- Использовать неинтерактивный (пакетный) режим.
-- -o -- Позволяет указать файл, в который нужно перенаправить вывод.
-- -q -- Выполнить скрипт в quiet-режиме.
-- -r -- Обрабатывать папки и файлы рекурсивно.
-- -s -- Выполнить скрипт в silent-режиме.
-- -v -- Выполнить многословный вывод.
-- -x -- Исключить объект.
-- -y -- Ответить «yes» на все вопросы.
+### Using standard options
 
-### Получение данных от пользователя
-Для ввода данных пользователем во время выполнения программы, в оболочке bash имеется команда read. После получения данных, эта команда помещает их в переменную:
+When writing bash scripts you can select any letters for the command line options and randomly set how the script reacts to those options. However, in the Linux world, the values of some options have become something of a standard to which it is good to follow. Here is the list of this options:
+- -a -- List all items.
+- -c -- Get the count of items.
+- -d -- Output directory.
+- -e -- Expand items.
+- -f -- Specify the file to read data from.
+- -h -- Output help for the command.
+- -i -- Ignore character case.
+- -l -- Execute full format data output.
+- -n -- Use non-interactive  (batch) mode.
+- -o -- Allows you to specify the file to which output should be redirected.
+- -q -- Execute script in quiet mode.
+- -r -- Process folders and files recursively.
+- -s -- Execute the script in silent mode.
+- -v -- Execute verbose output.
+- -x -- Exclude item.
+- -y -- Answer «yes» to all questions.
+
+### Receiving data from the user
+
+The bash shell has a read command for user input at runtime. After receiving the data, this command stores it in a variable:
 ```shell
 echo -n "Enter your name: "
 read name
 ```
 
-Обратите внимание на то, что команда echo, которая выводит приглашение, вызывается с ключом -n. Это приводит к тому, что в конце приглашения не выводится знак перевода строки, что позволяет пользователю скрипта вводить данные там же, где расположено приглашение, а не на следующей строке.
+Note that the echo command, which outputs the prompt, is called with -n option. This results in no line break character being displayed at the end of the prompt, allowing the script user to enter data where the prompt is located, rather than on the next line.
 
-При вызове read можно указывать и несколько переменных:
+You can specify multiple inputs:
 ```shell
 read -p "Enter your name: " first last
 ```
 
-Если, вызвав read, не указывать переменную, данные, введённые пользователем, будут помещены в специальную переменную среды REPLY.
+If you don’t specify variables for the read command, it will save all incoming inputs in the REPLY variable.

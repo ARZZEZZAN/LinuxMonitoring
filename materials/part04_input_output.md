@@ -1,13 +1,17 @@
-# Bash-скрипты, часть 4: ввод и вывод
-Каждому процессу позволено иметь до девяти открытых дескрипторов файлов. Оболочка bash резервирует первые три дескриптора с идентификаторами 0, 1 и 2. Вот что они означают:
-- 0, STDIN — стандартный поток ввода.
-- 1, STDOUT — стандартный поток вывода.
-- 2, STDERR — стандартный поток ошибок.
+# Bash scripts, part 4: input and output
+
+Each process can have nine file descriptors opened at the same time.
+The bash shell reserves the first three descriptors with identifiers 0, 1 and 2. This is what they mean:
+- 0, STDIN - standard input stream.
+- 1, STDOUT - standard output stream.
+- 2, STDERR - standard error stream.
 
 ### STDIN
-Для терминала стандартный ввод — это клавиатура. Когда в сценариях используют символ перенаправления ввода — <, Linux заменяет дескриптор файла стандартного ввода на тот, который указан в команде. Система читает файл и обрабатывает данные так, будто они введены с клавиатуры.
 
-Посмотрим на перенаправление ввода в действии:
+STDIN stands for standard input, which is the keyboard by default.
+When scripts use the input redirection character - <, Linux replaces the file descriptor of the standard input with the one specified in the command. The system reads the file and processes the data as if it were entered from the keyboard.
+
+Here is an example of the input redirection:
 ```shell
 exec 0< testfile
 count=1
@@ -18,17 +22,20 @@ count=$(( $count + 1 ))
 done
 ```
 
-Здесь команда read, при попытке прочитать данные из STDIN, будет читать их из файла, а не с клавиатуры.
+Here the read command, when trying to read data from STDIN, will read it from the file and not from the keyboard.
 
 ### STDOUT
-STDOUT — стандартный поток вывода оболочки. По умолчанию это — экран. Большинство bash-команд выводят данные в STDOUT, что приводит к их появлению в консоли. Данные можно перенаправить в файл, присоединяя их к его содержимому, для этого служит команда >>, например:
+
+STDOUT is the standard shell output stream. It is the screen by default.
+Most bash commands output data to STDOUT, which results in it appearing in the console.
+Data can be redirected to a file by attaching it to its contents, using the >> command, for example:
 ```shell
 pwd >> myfile
 ```
 
-То, что выведет pwd, будет добавлено к файлу myfile, при этом уже имеющиеся в нём данные никуда не денутся.
+The output of pwd will be added to myfile without deleting the existed data.
 
-Если в скрипте нужно перенаправлять много выводимых на экран данных, добавлять соответствующую команду к каждому вызову echo неудобно. Вместо этого можно задать перенаправление вывода в определённый дескриптор на время выполнения скрипта, воспользовавшись командой exec:
+If a script needs to redirect a lot of output data, it is inconvenient to add a command to each echo call. Instead, you can redirect the output to a specific descriptor for the duration of the script by using exec:
 ```shell
 exec 1>outfile
 ```

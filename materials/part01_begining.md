@@ -1,12 +1,13 @@
-# Bash-скрипты: начало
-В его первой строке нужно указать, какую именно оболочку мы собираемся использовать. Нас интересует bash, поэтому первая строка файла будет такой:
+# Bash scripts: beginning
+
+In the first line, we need to specify what kind of shell we are going to use. We are interested in bash, so the first line of the file will be:
 ```shell
 #!/bin/bash
 ```
 
-В других строках этого файла символ решётки используется для обозначения комментариев, которые оболочка не обрабатывает. Однако, первая строка — это особый случай, здесь решётка, за которой следует восклицательный знак (эту последовательность называют шебанг)
+Other lines in this file use a hash character to indicate comments that the shell does not handle. However, the first line is a special case, with a hash followed by an exclamation mark (this sequence is called a shebang)
 
-Команды оболочки отделяются знаком перевода строки. Вот как это выглядит:
+Shell commands are separated by a newline character. This is how it looks like:
 ```shell
 #!/bin/bash
 # This is a comment
@@ -14,76 +15,84 @@ pwd
 whoami
 ```
 
-Для запуска скрипта необходимо преобразовать скрипт в исполняемый файл. Для в этого в терминале выполняем команду:
+To run the script, you need to give the script an execute permission. To do this, run this command in the terminal:
+
 ```shell
 chmod +x ./myscript
 ```
 
-Теперь скрипт можно выполнить, набрав в командной строке:
+The script can now be run by entering in the command line:
 ```shell
 ./myscript
 ```
 
-### Вывод текста
-Для вывода текста в консоль Linux применяется команда echo:
+### Text output
+
+The echo command is used to output text to the Linux console:
 ```shell
 echo "Hello World"
 ```
 
-### Переменные
-Существуют два типа переменных, которые можно использовать в bash-скриптах:
-- Переменные среды
-- Пользовательские переменные
+### Variables
 
-Переменные среды содержат в себе некие системные данные, например домашняя директория текущего пользователя:
+There are two types of variables that can be used in bash scripts:
+- Environment variables
+- User variables
+
+Environment variables store some system data, such as the current user's home directory:
 ```shell
 echo "Home for the current user is: $HOME"
 ```
 
-В дополнение к переменным среды, bash-скрипты позволяют задавать и использовать в сценарии собственные переменные. Подобные переменные хранят значение до тех пор, пока не завершится выполнение сценария.
+Also bash scripts allow you to set and use your own variables in the script. Such variables store the value until the script terminates.
 
-Как и в случае с системными переменными, к пользовательским переменным можно обращаться, используя знак доллара:
+Like system variables, user variables can be accessed using the dollar sign:
+
 ```shell
 grade=5
 person="Adam"
 echo "$person is a good boy, he is in grade $grade"
 ```
 
-### Подстановка команд
-Bash-скрипт предоставляет возможность извлекать информацию из вывода команд и назначать её переменным.
+### Command substitution
 
-Сделать это можно двумя способами:
-- С помощью значка обратного апострофа «`»
-- С помощью конструкции $()
+The bash script allows you to get information from the command output and assign it to variables.
 
-Таким образом, сохранение вывода команды pwd в переменную mydir может выглядеть так:
+There are two ways to do this:
+
+- Using the reverse apostrophe character "`".
+- Using the $() construction
+
+So, saving the output of the pwd command to the mydir variable could look like this:
 ```shell
 mydir=`pwd`
 mydir=$(pwd)
 ```
 
-### Математические операции
-Для выполнения математических операций в файле скрипта можно использовать конструкцию вида $((*операция*)):
+### Mathematical operations
+
+You can use $((*operation*)) to perform mathematical operations in a script file:
 ```shell
 var1=$(( 5 + 5 ))
 var2=$(( $var1 * 2 ))
 ```
 
-### Условный оператор
-Условный оператор в bash реализуется следующим образом:
+### Conditional statement
+
+The conditional statement in bash is implemented like this:
 ```shell
-if команда
+if command
 then
-команды
-elif команда
+commands
+elif command
 then
-команды
+commands
 else
-команды
+commands
 fi
 ```
 
-Пример использования условного оператора:
+Here is an example of using a conditional statement:
 ```shell
 user=anotherUser
 if grep $user /etc/passwd
@@ -97,24 +106,25 @@ echo "The user $user doesn’t exist"
 fi
 ```
 
-### Сравнение
-В скриптах можно сравнивать числовые значения. Ниже приведён список соответствующих команд:
-- n1 -eq n2 -- Возвращает истинное значение, если n1 равно n2.
-- n1 -ge n2 -- Возвращает истинное значение, если n1больше или равно n2.
-- n1 -gt n2 -- Возвращает истинное значение, если n1 больше n2.
-- n1 -le n2 -- Возвращает истинное значение, если n1меньше или равно n2.
-- n1 -lt n2 -- Возвращает истинное значение, если n1 меньше n2.
-- n1 -ne n2 -- Возвращает истинное значение, если n1не равно n2.
+### Comparison
 
-В сценариях можно сравнивать и строковые значения. Вот список операторов:
-- str1 = str2 -- Проверяет строки на равенство, возвращает истину, если строки идентичны.
-- str1 != str2 -- Возвращает истину, если строки не идентичны.
-- str1 < str2 -- Возвращает истину, если str1меньше, чем str2.
-- str1 > str2 -- Возвращает истину, если str1больше, чем str2.
-- -n str1 -- Возвращает истину, если длина str1больше нуля.
-- -z str1 -- Возвращает истину, если длина str1равна нулю.
+Numerical values can be compared in scripts. Here is a list of corresponding commands:
+- n1 -eq n2 -- Returns true value if n1 equals n2.
+- n1 -ge n2 -- Returns true value if n1 is greater than or equal to n2.
+- n1 -gt n2 -- Returns true value if n1 is greater than n2.
+- n1 -le n2 -- Returns true value if n1 is less than or equal to n2.
+- n1 -lt n2 -- Returns true value if n1 is less than n2.
+- n1 -ne n2 -- Returns true value if n1 is not equal to n2.
 
-Пример выполнения операций сравнения:
+String values can also be compared in scripts. Here is a list of operators:
+- str1 = str2 -- Checks strings for equality, returns true if strings are identical.
+- str1 != str2 -- Returns true if strings are not identical.
+- str1 < str2 -- Returns true if str1 is less than str2.
+- str1 > str2 -- Returns true if str1 is greater than str2.
+  -n str1 -- Returns true if str1 length is greater than zero.
+  -z str1 -- Returns true if str1 length is zero.
+
+An example of performing comparison operations:
 ```shell
 #!/bin/bash
 val1=text
@@ -127,11 +137,11 @@ echo "$val1 is less than $val2"
 fi
 ```
 
-У операций сравнения строк есть определённые особенности:
+String comparison operations have certain features:
 
-1. Операторы «>» и «<» необходимо экранировать с помощью обратной косой черты, иначе скрипт будет работать неправильно, хотя сообщений об ошибках и не появится. Скрипт интерпретирует знак «>» как команду перенаправления вывода.
+1. ">" and "<" operators must be escaped with a backslash, otherwise the script will not work correctly, although no error messages will appear. The script interprets the ">" as a redirect output command.
 
-2. Чтобы скрипт работал без предупреждений, переменные, значения которых содержат более одного слова, стоит заключать в двойные кавычки:
+2. To make the script work without warnings, variables whose values contain more than one word should be enclosed in double quotes:
 ```shell
 val1=text
 val2="another text"
@@ -143,23 +153,24 @@ echo "$val1 is less than $val2"
 fi
 ```
 
-3. В командах сравнения прописные буквы меньше строчных, т.к. сравнение строк выполняется путём сравнения ASCII-кодов символов.
+3. In comparison commands upper case letters are smaller than lower case letters because string comparisons are done by comparing ASCII character codes.
 
-### Проверки файлов
-Нижеприведённые команды позволяют проверять различные условия, касающиеся файлов:
-- -d file -- Проверяет, существует ли файл, и является ли он директорией.
-- -e file -- Проверяет, существует ли файл.
-- -f file -- Проверяет, существует ли файл, и является ли он файлом.
-- -r file -- Проверяет, существует ли файл, и доступен ли он для чтения.
-- -s file -- Проверяет, существует ли файл, и не является ли он пустым.
-- -w file -- Проверяет, существует ли файл, и доступен ли он для записи.
-- -x file -- Проверяет, существует ли файл, и является ли он исполняемым.
-- file1 -nt file2 -- Проверяет, новее ли file1, чем file2.
-- file1 -ot file2 -- Проверяет, старше ли file1, чем file2.
-- -O file -- Проверяет, существует ли файл, и является ли его владельцем текущий пользователь.
-- -G file -- Проверяет, существует ли файл, и соответствует ли его идентификатор группы идентификатору группы текущего пользователя.
+### File checks
 
-В качестве примера приведём скрипт, который для существующей директории выведет её содержимое:
+The following commands allow you to check various file conditions:
+- -d file -- Checks if file exists and is a directory.
+- -e file -- Checks if file exists.
+- -f file -- Checks if file exists and is a file.
+- -r file -- Checks if file exists and is readable.
+- -s file -- Checks if file exists and is not empty.
+- -w file -- Checks if file exists and is writable.
+- -x file -- Checks if file exists and is executable.
+- -file1 -nt file2 -- Checks if file1 is newer than file2.
+- -file1 -ot file2 -- Checks if file1 is older than file2.
+- -O file -- Checks if file exists and if the current user owns it.
+- -G file -- Checks if file exists and if its group ID matches the current user's group ID.
+
+As an example, here is a script that outputs the contents of an existing directory:
 ```shell
 mydir=/home/likegeeks
 if [ -d $mydir ]

@@ -1,13 +1,14 @@
-# Bash-скрипты, часть 2: циклы
-Оболочка bash поддерживает циклы for, которые позволяют организовывать перебор последовательностей значений. Вот какова базовая структура таких циклов:
+# Bash scripts, part 2: loops
+
+The bash shell supports for loops, which allow you to iterate through a sequence of values. This is the basic structure of these loops:
 ```shell
 for var in list
 do
-команды
+commands
 done
 ```
 
-Пожалуй, самый простой пример цикла for в bash-скриптах — это перебор списка значений:
+The simplest example of a for loop in bash scripts is probably a list of values iteration:
 ```shell
 for var in first "the second" third "I’ll do it"
 do
@@ -15,7 +16,7 @@ echo "This is: $var"
 done
 ```
 
-Ещё один способ инициализации цикла for заключается в передаче ему списка, который является результатом работы некоей команды, например вывод содержимого файла:
+Another way to initialise a for loop is to send it a list, which is the result of some command, for example output the contents of a file:
 ```shell
 file="myfile"
 for var in $(cat $file)
@@ -24,23 +25,26 @@ echo " $var"
 done
 ```
 
-### Разделители полей
-В последнем описанном примере, все элементы списка, внутри файла, разделены между собой пробелами, табуляцией или переносом строки.
+### Field separators
 
-Для указания разделителей полей, существует специальная переменная окружения, которая называется IFS (Internal Field Separator). По умолчанию оболочка bash считает разделителями полей следующие символы:
-- Пробел
-- Знак табуляции
-- Знак перевода строки
+In the previous example, all list items, within a file, are separated by spaces, tabs or line breaks.
 
-Если bash встречает в данных любой из этих символов, он считает, что перед ним — следующее самостоятельное значение списка.
+There is a special environment variable called IFS (Internal Field Separator) to specify field separators.
 
-Переменную среды IFS можно временно изменить, например:
+By default, the bash shell considers the following characters as field separators:
+- Space
+- Tab character
+- Line feed character
+
+If bash sees any of these characters in the data, it assumes it is the next independent value in the list.
+
+The IFS environment variable can be temporarily changed:
 ```shell
 IFS=$'\n'
 IFS=:
 ```
 
-Теперь можно написать скрипт, который выведет содержимое файла построчно:
+Now you can write a script that outputs the contents of the file line by line:
 ```shell
 file="/etc/passwd"
 IFS=$'\n'
@@ -50,7 +54,7 @@ echo " $var"
 done
 ```
 
-Для вложенных циклов можно изменять переменную IFS, при этом внешний цикл продолжит работать с разделителем, заданным перед его началом. Вот, например, как выглядит обработка файла /etc/passwd:
+For nested loops, the IFS variable can be changed and the outer loop will continue to run with the separator set before it started. This is what the /etc/passwd file processing looks like:
 ```shell
 IFS=$'\n'
 for entry in $(cat /etc/passwd)
@@ -64,18 +68,20 @@ done
 done
 ```
 
-### Обход файлов, содержащихся в директории
-Ещё один пример использования циклов - обход файлов в директории:
+### Iterating over directory files
+
+Another example of using loops is iterating over directory files:
 ```shell
 for file in /home/likegeeks/*
 do
-команды
+commands
 fi
 done
 ```
 
-### Цикл while
-Помимо цикла for, в bash можно использовать и цикл while, например:
+### While loops
+
+Besides for loop, you can also use while loop in bash, for example:
 ```shell
 var1=5
 while [ $var1 -gt 0 ]
@@ -85,8 +91,9 @@ var1=$[ $var1 - 1 ]
 done
 ```
 
-### Циклы for в стиле C
-В bash-скриптах можно использовать циклы for, описание которых выглядит очень похожим на циклы в стиле C, например:
+### C-style for loops
+
+In bash scripts, you can use for loops that look very similar to C-style loops, for example:
 ```shell
 for (( i=1; i <= 10; i++ ))
 do
@@ -94,12 +101,14 @@ echo "number is $i"
 done
 ```
 
-В bash-скриптах есть команды break и continue, которые работают также, как и их аналоги в языке C. Использовать их можно не только в циклах for в стиле языка C, но и в обычных циклах for и while.
+There are break and continue commands in bash scripts that work just like their C counterparts. You can use them not only in C-style for loops, but also in standard for and while loops.
 
-### Обработка вывода, выполняемого в цикле
-Данные, выводимые в цикле, можно обработать, либо перенаправив вывод, либо передав их в конвейер. Делается это с помощью добавления команд обработки вывода после инструкции done.
+### Processing output in a loop
 
-Например, можно записать всё, что выводится в цикле, в файл:
+Data output in a loop can be processed by either redirecting the output or passing it to a pipeline. This is done by adding output processing commands after the done instruction.
+
+
+For example, you could write everything that is output in the loop in a file:
 ```shell
 for (( a = 1; a < 10; a++ ))
 do
@@ -107,4 +116,4 @@ echo "Number is $a"
 done > myfile.txt
 ```
 
-Оболочка создаст файл myfile.txt и перенаправит в этот файл вывод конструкции for.
+The shell will create the myfile.txt file and redirect the output of the for statement to this file.
