@@ -81,7 +81,7 @@ Linux basic bash scripting and system research.
 
 ## Part 2. Исследование системы
 
-Теперь вы уверенны в том, что готовы приступить к первоначальной задумке. Вы быстро прикидываете, какую информацию о системе стоит вывести, и приступаете к работе.
+Теперь вы уверены в том, что готовы приступить к первоначальной задумке. Вы быстро прикидываете, какую информацию о системе стоит вывести, и приступаете к работе.
 
 **== Задание ==**
 
@@ -202,9 +202,9 @@ TOP 10 files of maximum size arranged in descending order (path, size and type):
 1 - /var/log/one/one.exe, 10 Gb, exe  
 2 - /var/log/two/two.log, 10 Mb, log  
 etc up to 10  
-TOP 10 executable files of the maximum size arranged in descending order (path, size and hash)  
-1 - /var/log/one/one.exe, 10 Gb, MD5  
-2 - /var/log/two/two.exe, 9 Mb, SHA-3  
+TOP 10 executable files of the maximum size arranged in descending order (path, size and MD5 hash of file)  
+1 - /var/log/one/one.exe, 10 Gb, 3abb17b66815bc7946cefe727737d295  
+2 - /var/log/two/two.exe, 9 Mb, 53c8fdfcbb60cf8e1a1ee90601cc8fe2  
 etc up to 10  
 Script execution time (in seconds) = 1.5
 ```
