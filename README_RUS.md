@@ -190,7 +190,7 @@ Column 2 font color = default (blue)
 Total number of folders (including all nested ones) = 6  
 TOP 5 folders of maximum size arranged in descending order (path and size):  
 1 - /var/log/one/, 100 Gb  
-1 - /var/log/two/, 100 Mb  
+2 - /var/log/two/, 100 Mb  
 etc up to 5
 Total number of files = 30
 Number of:  
