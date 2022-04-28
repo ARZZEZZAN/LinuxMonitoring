@@ -102,12 +102,12 @@ Linux basic bash scripting and system research.
 **IP** = _ip-адрес машины в любом из сетевых интерфейсов_  
 **MASK** = _сетевая маска любого из сетевых интерфейсов в виде: **xxx.xxx.xxx.xxx**_  
 **GATEWAY** = _ip шлюза по умолчанию_  
-**RAM_TOTAL** = _размер оперативной памяти в Гб c точностью три знака после запятой в виде: **3.125 Gb**_  
+**RAM_TOTAL** = _размер оперативной памяти в Гб c точностью три знака после запятой в виде: **3.125 GB**_  
 **RAM_USED** = _размер используемой памяти в Гб c точностью три знака после запятой_  
 **RAM_FREE** = _размер свободной памяти в Гб c точностью три знака после запятой_  
 **SPACE_ROOT** = _размер рутового раздела в Mб с точностью два знака после запятой в виде: **254.25 MB**_  
 **SPACE_ROOT_USED** = _размер занятого пространства рутового раздела в Mб с точностью два знака после запятой_  
-**SPACE_ROOT_FREE** = _размер рутового раздела в Mб с точностью два знака после запятой_
+**SPACE_ROOT_FREE** = _размер свободного пространства рутового раздела в Mб с точностью два знака после запятой_
 
 После вывода значений предложить записать данные в файл (предложить пользователю ответить **Y/N**).  
 Ответы **Y** и **y** считаются положительными, все прочие - отрицательными.
@@ -192,8 +192,8 @@ Column 2 font color = default (blue)
 ```
 Total number of folders (including all nested ones) = 6  
 TOP 5 folders of maximum size arranged in descending order (path and size):  
-1 - /var/log/one/, 100 Gb  
-2 - /var/log/two/, 100 Mb  
+1 - /var/log/one/, 100 GB  
+2 - /var/log/two/, 100 MB  
 etc up to 5
 Total number of files = 30
 Number of:  
@@ -204,12 +204,12 @@ Log files (with the extension .log) = 2
 Archive files = 3  
 Symbolic links = 4  
 TOP 10 files of maximum size arranged in descending order (path, size and type):  
-1 - /var/log/one/one.exe, 10 Gb, exe  
-2 - /var/log/two/two.log, 10 Mb, log  
+1 - /var/log/one/one.exe, 10 GB, exe  
+2 - /var/log/two/two.log, 10 MB, log  
 etc up to 10  
 TOP 10 executable files of the maximum size arranged in descending order (path, size and MD5 hash of file)  
-1 - /var/log/one/one.exe, 10 Gb, 3abb17b66815bc7946cefe727737d295  
-2 - /var/log/two/two.exe, 9 Mb, 53c8fdfcbb60cf8e1a1ee90601cc8fe2  
+1 - /var/log/one/one.exe, 10 GB, 3abb17b66815bc7946cefe727737d295  
+2 - /var/log/two/two.exe, 9 MB, 53c8fdfcbb60cf8e1a1ee90601cc8fe2  
 etc up to 10  
 Script execution time (in seconds) = 1.5
 ```
