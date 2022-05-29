@@ -75,6 +75,7 @@ There was a folder labeled "materials" underneath the article clippings in Mike'
 - All scripts must be decomposed and split into several files
 - The main script file for each task must be named **main.sh**
 - All scripts should have checks for incorrect input (not all parameters specified, wrong format parameters, etc.)
+- All scripts must be run on a virtual machine *Ubuntu Server 20.04 LTS*
 
 ## Part 1. First effort
 
