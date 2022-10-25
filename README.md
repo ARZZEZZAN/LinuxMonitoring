@@ -235,3 +235,5 @@ You said goodbye and were about to leave when you remembered an important detail
 `-` Oh, I completely forgot to ask. What's your name?
 
 `-` Sebastian.
+
+💡 [Tap here](https://forms.yandex.ru/u/6357f484068ff03389ed9b96/) **to leave your feedback on the project**. Pedago Team really tries to make your educational experience better.
