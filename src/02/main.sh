@@ -44,9 +44,9 @@ echo "RAM_USED: $RAM_USED"
 echo "RAM_FREE: $RAM_FREE"
 
 # Get Root Partition Information
-SPACE_ROOT=$(df -h / | awk '{print $2}' | tail -n 1)
-SPACE_ROOT_USED=$(df -h / | awk '{print $3}' | tail -n 1)
-SPACE_ROOT_FREE=$(df -h / | awk '{print $4}' | tail -n 1)
+SPACE_ROOT=$(df -h / | awk '{print $2}' | tail -1)
+SPACE_ROOT_USED=$(df -h / | awk '{print $3}' | tail -1)
+SPACE_ROOT_FREE=$(df -h / | awk '{print $4}' | tail -1)
 echo "SPACE_ROOT: $SPACE_ROOT"
 echo "SPACE_ROOT_USED: $SPACE_ROOT_USED"
 echo "SPACE_ROOT_FREE: $SPACE_ROOT_FREE"
