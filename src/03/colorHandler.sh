@@ -8,7 +8,7 @@ blue="\033[44m"
 purple="\033[45m"
 black="\033[40m"
 
-
+ret="\e[0m"
 
 mass[0]=$color1
 mass[1]=$color2
