@@ -1,21 +1,42 @@
 #!/bin/bash
 
 # Set color codes
-white='\033[0;37m'
-red='\033[0;31m'
-green='\033[0;32m'
-blue='\033[0;34m'
-purple='\033[0;35m'
-black='\033[0;30m'
-nc='\033[0m'
+white="\033[107m"
+red="\033[41m"
+green="\033[42m"
+blue="\033[44m"
+purple="\033[45m"
+black="\033[40m"
 
 
-bg_value_names=$color1
-font_value_names=$color2
-bg_values=$color3
-font_values=$color4
+
+mass[0]=$color1
+mass[1]=$color2
+mass[2]=$color3
+mass[3]=$color4
 
 
+for i in 0 1 2 3; do
+	if [[ ${mass[$i]} == 1 ]]; then
+		arr[$i]=$white
+	elif [[ ${mass[$i]} == 2 ]]; then
+		arr[$i]=$red
+	elif [[ ${mass[$i]} == 3 ]]; then
+		arr[$i]=$green
+	elif [[ ${mass[$i]} == 4 ]]; then
+		arr[$i]=$blue
+	elif [[ ${mass[$i]} == 5 ]]; then
+		arr[$i]=$purple
+	elif [[ ${mass[$i]} == 6 ]]; then
+		arr[$i]=$black
+	fi
+done
+
+bg_value_names=${mass[0]}
+font_value_names=${mass[1]}
+bg_values=${mass[2]}
+font_values=${mass[3]}
+echo $bg_value_names
 HOSTNAME=$(hostname)
 echo -e "\033[48;5;${bg_value_names}m\033[38;5;${font_value_names}mHOSTNAME\033[0m: \033[48;5;${bg_values}m\033[38;5;${font_values}m$HOSTNAME\033[0m"
 # echo -e "${green}HOSTNAME${nc}: $HOSTNAME"
