@@ -14,7 +14,7 @@ USER=$(whoami)
 echo "USER: $USER"
 
 # Get OS Type and Version
-OS=$(lsb_release -d | awk '{print $2, $3}')
+OS=$(lsb_release -a | grep Description | awk '{print $2, $3}')
 echo "OS: $OS"
 
 # Get Current Time
@@ -28,8 +28,8 @@ echo "UPTIME: $UPTIME"
 echo "UPTIME_SEC: $UPTIME_SEC"
 
 # Get IP, Mask and Gateway
-IP=$(ip route get 1 | awk '{print $NF;exit}')
-MASK=$(ifconfig | grep "netmask" | awk '{print $4}')
+IP=$(ifconfig | grep "inet " | awk '{print $1, $2}')
+MASK=$(ifconfig | grep "netmask" | awk '{print $2, $3, $4}')
 GATEWAY=$(ip route | grep default | awk '{print $3}')
 echo "IP: $IP"
 echo "MASK: $MASK"
