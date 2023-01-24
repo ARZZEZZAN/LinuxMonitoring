@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 hostname="$1"
 timezone="$2"
 user="$3"
