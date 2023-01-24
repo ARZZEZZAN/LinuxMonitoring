@@ -1,52 +1,28 @@
 #!/bin/bash
 
-# Get Hostname
-HOSTNAME=$(hostname)
-echo "HOSTNAME: $HOSTNAME"
 
-# Get Timezone
-TIMEZONE=$(timedatectl | grep "Time zone" | awk '{print $3}')
-UTC=$(date +%z)
-echo "TIMEZONE: $TIMEZONE UTC $UTC"
+if [ $# != 4 ]; then
+  echo "Please provide 4 parameters: background color of value names, font color of value names, background color of values, and font color of values"
+	exit 1
+else
+	export color1=$1
+	export color2=$2
+	export color3=$3
+	export color4=$4
+fi
 
-# Get Current User
-USER=$(whoami)
-echo "USER: $USER"
+for i in $color1 $color2 $color3 $color4; do
+	if [[ $i < 1 || $i > 6 ]]; then
+	echo "Please enter numbers from 1 to 6."
+	exit 1
+	fi
+done
 
-# Get OS Type and Version
-OS=$(lsb_release -a | grep Description | awk '{print $2, $3}')
-echo "OS: $OS"
+if [ $color1 -eq $color2 ] || [ $color3 -eq $color4 ]
+then
+    echo "Background and font color values must not match. Please run the script again with different values."
+    exit 1
+fi
 
-# Get Current Time
-DATE=$(date '+%d %B %Y %T')
-echo "DATE: $DATE"
-
-# Get Uptime
-UPTIME=$(uptime -p)
-UPTIME_SEC=$(uptime | awk '{print $3}' | sed 's/,//g')
-echo "UPTIME: $UPTIME"
-echo "UPTIME_SEC: $UPTIME_SEC"
-
-# Get IP, Mask and Gateway
-IP=$(ifconfig | grep "inet " | awk '{print $1, $2}')
-MASK=$(ifconfig | grep "netmask" | awk '{print $2, $3, $4}')
-GATEWAY=$(ip route | grep default | awk '{print $3}')
-echo "IP: $IP"
-echo "MASK: $MASK"
-echo "GATEWAY: $GATEWAY"
-
-# Get RAM Information
-RAM_TOTAL=$(free -h | grep Mem | awk '{print $2}')
-RAM_USED=$(free -h | grep Mem | awk '{print $3}')
-RAM_FREE=$(free -h | grep Mem | awk '{print $4}')
-echo "RAM_TOTAL: $RAM_TOTAL"
-echo "RAM_USED: $RAM_USED"
-echo "RAM_FREE: $RAM_FREE"
-
-# Get Root Partition Information
-SPACE_ROOT=$(df -h / | awk '{print $2}' | tail -1)
-SPACE_ROOT_USED=$(df -h / | awk '{print $3}' | tail -1)
-SPACE_ROOT_FREE=$(df -h / | awk '{print $4}' | tail -1)
-echo "SPACE_ROOT: $SPACE_ROOT"
-echo "SPACE_ROOT_USED: $SPACE_ROOT_USED"
-echo "SPACE_ROOT_FREE: $SPACE_ROOT_FREE"
+chmod +x colorHandler.sh
+./colorHandler.sh
