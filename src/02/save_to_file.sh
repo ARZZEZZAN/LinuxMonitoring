@@ -29,22 +29,22 @@ if [ "$saveToFile" == "Y" ] || [ "$saveToFile" == "y" ]; then
   fileName="$currentTime.status"
 
   # Write information to file
-  # echo "HOSTNAME: $hostname" >> $fileName
-  # echo "TIMEZONE: $timezone UTC $UTC" >> $fileName
-  # echo "USER: $user" >> $fileName
-  # echo "OS: $os" >> $fileName
-  # echo "DATE: $date" >> $fileName
-  # echo "UPTIME: $uptime" >> $fileName
-  # echo "UPTIME_SEC: $uptime_sec" >> $fileName
-  # echo "IP: $ip" >> $fileName
-  # echo "MASK: $mask" >> $fileName
-  # echo "GATEWAY: $gateway" >> $fileName
-  # echo "RAM_TOTAL: $ram_total" >> $fileName
-  # echo "RAM_USED: $ram_used" >> $fileName
-  # echo "RAM_FREE: $ram_free" >> $fileName
-  # echo "SPACE_ROOT: $space_root" >> $fileName
-  # echo "SPACE_ROOT_USED: $space_root_used" >> $fileName
-  # echo "SPACE_ROOT_FREE: $space_root_free" >> $fileName
+  echo "HOSTNAME: $hostname" >> $fileName
+  echo "TIMEZONE: $timezone UTC $UTC" >> $fileName
+  echo "USER: $user" >> $fileName
+  echo "OS: $os" >> $fileName
+  echo "DATE: $date" >> $fileName
+  echo "UPTIME: $uptime" >> $fileName
+  echo "UPTIME_SEC: $uptime_sec" >> $fileName
+  echo "IP: $ip" >> $fileName
+  echo "MASK: $mask" >> $fileName
+  echo "GATEWAY: $gateway" >> $fileName
+  echo "RAM_TOTAL: $ram_total" >> $fileName
+  echo "RAM_USED: $ram_used" >> $fileName
+  echo "RAM_FREE: $ram_free" >> $fileName
+  echo "SPACE_ROOT: $space_root" >> $fileName
+  echo "SPACE_ROOT_USED: $space_root_used" >> $fileName
+  echo "SPACE_ROOT_FREE: $space_root_free" >> $fileName
   echo "Information saved to $fileName"
 else
   echo "Information not saved to a file."
