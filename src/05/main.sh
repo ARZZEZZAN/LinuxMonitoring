@@ -83,3 +83,7 @@ while read -r line; do
   echo "$counter - $path, $size, $hash"
   counter=$((counter+1))
 done <<< "$top_10_exec_files"
+
+end_time=$(date +%s.%N)
+elapsed_time=$(echo "$end_time - $start_time" | bc)
+echo "Script execution time (in seconds) = $elapsed_time"
