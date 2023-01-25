@@ -61,3 +61,25 @@ while read -r line; do
     ext=$(echo "$path" | awk -F . '{if (NF>1) {print $NF}}')
     echo "$path, $size, $ext"
 done <<< "$top_files"
+
+
+# Find all executable files in the specified directory
+exec_files=$(find "$1" -type f -executable)
+
+# For each file, get the path, size, and hash
+top_10_exec_files=$(for file in $exec_files; do echo $(stat -c '%s %n' "$file") $(md5sum "$file" | awk '{print $1}'); done)
+
+# Sort the files by size in descending order and get the top 10
+top_10_exec_files=$(echo "$top_10_exec_files" | sort -nrk1 | head -10)
+
+echo "TOP 10 executable files of the maximum size arranged in descending order (path, size and MD5 hash of file):"
+
+# Output the path, size, and hash for each file
+counter=1
+while read -r line; do
+  size=$(echo "$line" | awk '{print $1}')
+  path=$(echo "$line" | awk '{print $2}')
+  hash=$(echo "$line" | awk '{print $3}')
+  echo "$counter - $path, $size, $hash"
+  counter=$((counter+1))
+done <<< "$top_10_exec_files"
