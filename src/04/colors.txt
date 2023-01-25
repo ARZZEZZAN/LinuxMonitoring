@@ -1,0 +1,4 @@
+column1_background=5
+column1_font_color=3
+column2_background=1
+column2_font_color=2
