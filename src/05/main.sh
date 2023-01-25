@@ -52,7 +52,7 @@ echo "Archive files = $archive_files"
 echo "Symbolic links = $sym_links"
 
 # Top 10 files with largest size in descending order (path, size and type)
-top_files=$(find "$1" -type f -printf '%s %p\n' | sort -nr | head -n 10)
+top_files=$(find "$1" -type f -printf '%s %p\n' | sort -rh | head -n 10)
 echo "TOP 10 files of maximum size arranged in descending order (path, size and type):"
 while read -r line; do
     size=$(echo "$line" | awk '{print $1}')
