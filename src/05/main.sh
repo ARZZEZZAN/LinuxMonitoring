@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Check if parameter is passed
+if [[ -z $1 ]]; then
+echo "Error: Please provide a directory path as a parameter."
+exit 1
+fi
+
+# Check if parameter is a valid directory
+if [[ ! -d $1 ]]; then
+echo "Error: The provided parameter is not a valid directory."
+exit 1
+fi
+
+# Add trailing '/' if not present
+dir_path="$1"
+if [[ ${dir_path: -1} != '/' ]]; then
+dir_path="$dir_path/"
+fi
+
+# Start timer
+start_time=$(date +%s)
+
+# Total number of folders
+total_folders=$(find "$dir_path" -type d | wc -l)
+echo "Total number of folders (including all nested ones) = $total_folders"
+
+# Top 5 folders with largest size
+echo "TOP 5 Folders of maximum size arranged in descending order (path and size):"
+IFS=$'\n'
+top_folders=($(du -h --max-depth=1 "$dir_path" | sort -rh))
+for i in {0..4}; do
+echo "$((i+1)) - ${top_folders[$i]}"
+done
+
+# Total number of files
+total_files=$(find "$dir_path" -type f | wc -l)
+echo "Total number of files = $total_files"
+
+# Number of different types of files
+conf_files=$(find "$dir_path" -type f -name ".conf" | wc -l)
+text_files=$(find "$dir_path" -type f -name ".txt" | wc -l)
+exe_files=$(find "$dir_path" -type f -executable | wc -l)
+log_files=$(find "$dir_path" -type f -name ".log" | wc -l)
+archive_files=$(find "$dir_path" -type f -name ".zip" -o -name ".tar" -o -name ".gz" | wc -l)
+sym_links=$(find "$dir_path" -type l | wc -l)
+echo "Number of:"
+echo "Configuration files (with the .conf extension) = $conf_files"
+echo "Text files = $text_files"
+echo "Executable files = $exe_files"
+echo "Log files (with the extension .log) = $log_files"
+echo "Archive files = $archive_files"
+echo "Symbolic links = $sym_links"
+
+# Top 10 files with largest size in descending order (path, size and type)
+top_files=$(find "$1" -type f -printf '%s %p\n' | sort -nr | head -n 10)
+echo "TOP 10 files of maximum size arranged in descending order (path, size and type):"
+while read -r line; do
+    size=$(echo "$line" | awk '{print $1}')
+    path=$(echo "$line" | awk '{print $2}')
+    ext=$(echo "$path" | awk -F . '{if (NF>1) {print $NF}}')
+    echo "$path, $size, $ext"
+done <<< "$top_files"
