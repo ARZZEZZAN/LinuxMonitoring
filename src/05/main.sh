@@ -22,28 +22,27 @@ fi
 start_time=$(date +%s)
 
 # Total number of folders
-total_folders=$(find "$dir_path" -type d | wc -l)
+total_folders=$(find "$dir_path" -type d | wc | awk '{print $1}')
 echo "Total number of folders (including all nested ones) = $total_folders"
 
 # Top 5 folders with largest size
 echo "TOP 5 Folders of maximum size arranged in descending order (path and size):"
-IFS=$'\n'
 top_folders=($(du -h --max-depth=1 "$dir_path" | sort -rh))
 for i in {0..4}; do
 echo "$((i+1)) - ${top_folders[$i]}"
 done
 
 # Total number of files
-total_files=$(find "$dir_path" -type f | wc -l)
+total_files=$(find "$dir_path" -type f | wc | awk '{print $1}')
 echo "Total number of files = $total_files"
 
 # Number of different types of files
-conf_files=$(find "$dir_path" -type f -name ".conf" | wc -l)
-text_files=$(find "$dir_path" -type f -name ".txt" | wc -l)
-exe_files=$(find "$dir_path" -type f -executable | wc -l)
-log_files=$(find "$dir_path" -type f -name ".log" | wc -l)
-archive_files=$(find "$dir_path" -type f -name ".zip" -o -name ".tar" -o -name ".gz" | wc -l)
-sym_links=$(find "$dir_path" -type l | wc -l)
+conf_files=$(find "$dir_path" -type f -name ".conf" | wc | awk '{print $1}')
+text_files=$(find "$dir_path" -type f -name ".txt" | wc | awk '{print $1}')
+exe_files=$(find "$dir_path" -type f -executable | wc | awk '{print $1}')
+log_files=$(find "$dir_path" -type f -name ".log" | wc | awk '{print $1}')
+archive_files=$(find "$dir_path" -type f -name ".zip" -o -name ".tar" -o -name ".gz" | wc | awk '{print $1}')
+sym_links=$(find "$dir_path" -type l | wc | awk '{print $1}')
 echo "Number of:"
 echo "Configuration files (with the .conf extension) = $conf_files"
 echo "Text files = $text_files"
